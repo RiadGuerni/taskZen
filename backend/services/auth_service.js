@@ -7,7 +7,7 @@ class AuthService{
         if (AuthService.instance){
             return AuthService.instance;
         }
-        this.instance = this ;
+        AuthService.instance = this ;
         return this ;
     }
     async register({username , password}){
