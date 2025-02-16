@@ -9,27 +9,34 @@ class TaskService {
         return this ;
     }
 
-    async createTask({taskListId , task}){
-        const taskList = await this.getTasksList(taskListId);
+    async getTasks(taskListId){
+        const taskList = await this.#getTasksList(taskListId);
+        return taskList.tasks;
+    }
+    
+    async addTask({taskListId , task}){
+        const taskList = await this.#getTasksList(taskListId);
         taskList.tasks.push(task);
         await taskList.save();
     }
 
-    async updateTask({taskListId , taskId , task}){
-        const taskList = await this.getTasksList(taskListId);
-        const taskIndex = taskList.tasks.findIndex(t => t._id === taskId);
+    async markTaskAsDone({taskListId , taskId }){
+        const taskList = await this.#getTasksList(taskListId);
+        const taskIndex = taskList.tasks.findIndex(t =>t._id.equals(taskId)
+        );
+        
         if (taskIndex === -1){
             const error = new Error("Task not found");
             error.statusCode = 404;
             throw error;
         }
-        taskList.tasks[taskIndex] = task;
+        taskList.tasks[taskIndex].done = true;
         await taskList.save();
     }
 
     async deleteTask ({taskListId , taskId}) {
-        const taskList = await this.getTasksList(taskListId);
-        const taskIndex = taskList.tasks.findIndex( t => t._id === taskId);
+        const taskList = await this.#getTasksList(taskListId);
+        const taskIndex = taskList.tasks.findIndex( t => t._id.equals(taskId));
         if (taskIndex === -1){
             const error = new Error("Task not found");
             error.statusCode = 404;
@@ -39,12 +46,9 @@ class TaskService {
         await taskList.save();
     }
     
-    async getTasks(taskListId){
-        const taskList = await this.getTasksList(taskListId);
-        return taskList.tasks;
-    }
 
-    async getTasksList(taskListId){
+
+    async #getTasksList(taskListId){
         const taskList = await TaskList.findById(taskListId);   
         if (!taskList){
             const error = new Error("Task List not found");
@@ -55,4 +59,4 @@ class TaskService {
     }
 }
 
-module.exports = TaskService;
+module.exports = new TaskService();
