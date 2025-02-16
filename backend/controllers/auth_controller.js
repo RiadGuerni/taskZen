@@ -1,19 +1,13 @@
 const authService = require("../services/auth_service");
 const jwtUtils = require("../utils/jwt_utils");
 const passport = require("passport");
-const { validationResult } = require("express-validator");
+const checkValidationErrors = require("../utils/check_validation_errors");
 
 class AuthController {
     static async register(req, res,next) {
         
         try {
-            const errors = validationResult(req);
-            console.log(errors);
-            if (!errors.isEmpty()) {
-                const error = new Error(errors.array()[0].msg);
-                error.statusCode = 400;
-                throw error;
-            }
+            checkValidationErrors(req);
             const { username, password } = req.body;
             const user = await authService.register({ username, password });
             const token = jwtUtils.createToken(user._id);
@@ -24,12 +18,7 @@ class AuthController {
     }
     static async login(req, res,next) {
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                const error = new Error(errors.array()[0].msg);
-                error.statusCode = 400;
-                throw error;
-            }
+            checkValidationErrors(req);
             const { username, password } = req.body;
             const user = await authService.login({ username, password });
             const token = jwtUtils.createToken(user._id);
