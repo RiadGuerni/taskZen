@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+require('./config/passport_jwt');
 const authRouter = require('./routers/auth_router');
+const taskRouter = require('./routers/task_router');
 const errorHandler = require('./middlewares/error_handler');
 
 const app = express();
@@ -16,7 +18,7 @@ mongoose.connect(MONGO_URI)
     .catch((error) => console.error('Error connecting to MongoDB:', error));
 
 app.use('/api/auth', authRouter);
-
+app.use('/api/task', taskRouter);
 
 app.use(errorHandler);
 const PORT = process.env.PORT ;
