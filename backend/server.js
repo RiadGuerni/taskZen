@@ -17,9 +17,11 @@ mongoose.connect(MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((error) => console.error('Error connecting to MongoDB:', error));
 
-app.use('/api/auth', authRouter);
-app.use('/api/task', taskRouter);
+app.use('/taskZen/auth', authRouter);
+app.use('/taskZen/task', taskRouter);
 
 app.use(errorHandler);
 const PORT = process.env.PORT ;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+
