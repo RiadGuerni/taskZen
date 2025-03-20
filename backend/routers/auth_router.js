@@ -9,4 +9,13 @@ const validationList = [
 ]
 AuthRouter.post("/register", validationList, AuthController.register);
 AuthRouter.post("/login",validationList, AuthController.login);
+
+AuthRouter.get("/verifyToken" , passport.authenticate("jwt", {session : false}), ( req,res,next)=>{
+    if (!req.user) {
+    const error = new Error('Unauthorized');
+    error.statusCode = 401;
+    return next(error);
+}
+res.status(200).json({message : "Token is valid"});
+});
 module.exports = AuthRouter;
