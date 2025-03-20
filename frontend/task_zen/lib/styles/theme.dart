@@ -25,6 +25,11 @@ ThemeData lightPurpleTheme(BuildContext context) {
       Theme.of(context).textTheme,
     ).copyWith(
       headlineSmall: GoogleFonts.inter(
+        fontSize: 14, // Increased font size
+        fontWeight: FontWeight.bold, // Set to bold
+        color: const Color(0xff8CC2F4),
+      ),
+      headlineLarge: GoogleFonts.inter(
         fontSize: 28, // Increased font size
         fontWeight: FontWeight.w900, // Set to bold
         color: const Color.fromARGB(255, 0, 0, 0),
@@ -76,7 +81,7 @@ ThemeData lightPurpleTheme(BuildContext context) {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: Color.fromARGB(255, 255, 255, 255),
-        backgroundColor: const Color(0xff8CC2F4),
+        backgroundColor: const Color.fromARGB(255, 123, 183, 240),
         fixedSize: Size(
           MediaQuery.of(context).size.height * 0.2,
           MediaQuery.of(context).size.width * 0.18,
@@ -84,12 +89,12 @@ ThemeData lightPurpleTheme(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(9), // Square corners
         ),
-        textStyle: Theme.of(context).textTheme.headlineSmall,
+        textStyle: Theme.of(context).textTheme.headlineLarge,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: const Color(0xff8CC2F4),
+      backgroundColor: const Color.fromARGB(255, 131, 188, 241),
       foregroundColor: Colors.white,
     ),
 

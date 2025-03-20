@@ -1,10 +1,8 @@
 import 'package:http/http.dart';
-import 'package:riverpod/riverpod.dart';
-import 'package:task_zen/providers/services/storage_service.dart';
 import 'http_service.dart';
 
 class AuthService {
-  final Http http = Http(baseUrl: 'http://localhost:3000/taskZen/auth');
+  final Http http = Http(baseUrl: 'http://10.0.2.2:3000/taskZen/auth');
   // singleton pattern
   AuthService._private();
   static final AuthService _instance = AuthService._private();

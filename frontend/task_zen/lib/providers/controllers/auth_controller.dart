@@ -4,9 +4,7 @@ import 'dart:convert';
 import 'package:riverpod/riverpod.dart';
 import 'package:task_zen/providers/services/user_service.dart';
 import 'package:task_zen/states/auth_state.dart';
-import 'package:task_zen/models/user.dart';
 import 'package:task_zen/providers/services/auth_service.dart';
-import 'package:task_zen/providers/services/storage_service.dart';
 
 class AuthController extends AsyncNotifier<AuthState> {
   UserService userService = UserService();
@@ -44,7 +42,7 @@ class AuthController extends AsyncNotifier<AuthState> {
     try {
       final response = await authService.signUp(username, password);
       if (response.statusCode == 201) {
-        final body = json.decode(response.body);
+        final body = json.decode(response.body) as Map<String, dynamic>;
         final user = userService.createUser(
           username,
           body['token'],

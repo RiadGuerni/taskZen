@@ -68,7 +68,11 @@ class AuthPage extends ConsumerWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 passwordField,
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                !isLogin ? confirmPasswordField : SizedBox(),
+                !isLogin
+                    ? confirmPasswordField
+                    : SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.015,
+                    ),
                 !isLogin
                     ? SizedBox(
                       height: MediaQuery.of(context).size.height * 0.025,
@@ -92,6 +96,7 @@ class AuthPage extends ConsumerWidget {
                         // validate userName and password function not yet implemented
                         final username = usernameField.usernameController.text;
                         final password = passwordField.passwordController.text;
+                        print("the sign up button was pressed");
                         final authController = ref.read(
                           authControllerProvider.notifier,
                         );
@@ -107,7 +112,7 @@ class AuthPage extends ConsumerWidget {
                       },
                       child: Text(
                         "Don't have an account? Sign up",
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     )
                     : GestureDetector(
@@ -116,7 +121,7 @@ class AuthPage extends ConsumerWidget {
                       },
                       child: Text(
                         "Already have an account? Sign in",
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
               ],

@@ -29,7 +29,7 @@ class Http {
   Future<http.Response> post(
     String extendPath,
     Map<String, dynamic> body,
-    headers,
+    Map<String, String> headers,
   ) async {
     headers = {...defaultHeaders, ...headers};
     http.Response response = await http.post(
@@ -54,7 +54,10 @@ class Http {
     return response;
   }
 
-  Future<http.Response> delete(String extendPath, headers) async {
+  Future<http.Response> delete(
+    String extendPath,
+    Map<String, String> headers,
+  ) async {
     headers = {...defaultHeaders, ...headers};
     http.Response response = await http.delete(
       Uri.parse('$baseUrl/$extendPath'),
